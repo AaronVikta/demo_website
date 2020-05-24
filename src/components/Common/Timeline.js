@@ -1,17 +1,17 @@
 import React, {Component} from 'react'
-import Header from '../Common/Header'
-import image from '../assets/img/about.jpg'
 
-class About extends Component{
+const timelines =[
+  {date:"December 1994", subtitle:"A Star is Born", description:`Lorem ipsum dolor
+   sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente,
+   totam reiciendis temporibus qui quibusdam,
+   recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium
+   consectetur!
+  `,image:""}
+]
+
+class Timeline extends Component{
   render(){
     return(
-      <div>
-      <Header
-      title="Learn More About the Company"
-      subtitle="ABOUT US"
-      showButton={false}
-      image={image}
-      />
       <section className="page-section" id="about">
           <div className="container">
               <div className="text-center">
@@ -67,9 +67,8 @@ class About extends Component{
               </ul>
           </div>
       </section>
-      </div>
     )
   }
 }
 
-export default About;
+export default Timeline

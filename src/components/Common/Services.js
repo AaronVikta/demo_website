@@ -1,5 +1,6 @@
 import React,{Component} from 'react'
 import SingleService from './SingleService'
+
 const services =[
    {title: 'Web Development', description:`Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore
    harum ex magni, dicta impedit.`, icon: 'fa-laptop'},
@@ -7,9 +8,8 @@ const services =[
     harum ex magni, dicta impedit.`, icon: 'fa-mobile'},
    {title: 'Security', description:`Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore
    harum ex magni, dicta impedit.`, icon: 'fa-lock'}
+ ]
 
-
-]
 class Services extends Component{
   render(){
     return(
