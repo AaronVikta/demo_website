@@ -1,14 +1,5 @@
 import React, {Component} from 'react'
 
-const timelines =[
-  {date:"December 1994", subtitle:"A Star is Born", description:`Lorem ipsum dolor
-   sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente,
-   totam reiciendis temporibus qui quibusdam,
-   recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium
-   consectetur!
-  `,image:""}
-]
-
 class Timeline extends Component{
   render(){
     return(
