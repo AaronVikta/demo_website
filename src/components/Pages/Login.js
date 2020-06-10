@@ -3,6 +3,7 @@ import Field from '../Common/Field';
 import {withFormik} from 'formik'
 import {connect } from 'react-redux'
 
+import * as AuthActions from '../../store/actions/authActions'
 import * as Yup from 'yup';
 
 const fields =[
@@ -21,7 +22,12 @@ class Login extends Component{
             <h1> Login</h1>
           </div>
           <div className="row">
-            <form onSubmit={this.props.handleSubmit}>
+            <form onSubmit={ e =>{
+              e.preventDefault();
+              this.props.login(
+                this.props.values.email,
+                this.props.values.password)
+            }}>
             {fields.map((f, i)=>{
               return (
                 <div key={i} className="col-md-12">
@@ -32,12 +38,14 @@ class Login extends Component{
                 onChange= {this.props.handleChange}
                 onBlur= {this.props.handleBlur}
                 touched={(this.props.touched[f.name])}
+                errors= {this.props.errors[f.name]}
                 />
                 </div>)
             })
           }
           <div className="col-md-12">
-            <button className="btn btn-primary">Login </button>
+            <button className="btn btn-primary">
+            Login </button>
           </div>
             </form>
           </div>
@@ -57,12 +65,15 @@ const mapStateToProps = state=>{
 const mapDispatchToProps= dispatch =>{
   return{
     login: (email, pass)=>{
-      console.log("login in user", email);
+      dispatch(AuthActions.login(email,pass))
     }
   }
 }
 
-export default connect(withFormik({
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withFormik({
   mapPropsToValues:()=>({
     email:'',
     password:''
@@ -71,7 +82,7 @@ validationSchema: Yup.object().shape({
     email: Yup.string().email('Email is Invalid').required('Your email is required'),
     password:Yup.string().required('Your Password is required')
   }),
-  handleSubmit: (values, {setSubmitting}) => {
+  handleSubmit: (values, {setSubmitting}, login) => {
     console.log("Login Attempt",values);
   }
-}))(Login)
+})(Login))
