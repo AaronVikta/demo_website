@@ -10,6 +10,8 @@ import About from './components/Pages/About'
 import Contact from './components/Pages/Contact'
 import Login from './components/Pages/Login'
 import Dashboard from './components/Pages/Dashboard'
+import LoginWrapper from './components/LoginWrapper';
+
 class App extends Component {
 render(){
   return (
@@ -18,15 +20,18 @@ render(){
           <Route
           path="/admin"
           render = { props =>{
-            console.log("props", props);
             return (
-              <AdminWrapper>
+            <div>
               {this.props.auth.token?
+              <AdminWrapper>
                 <Dashboard/>
-                :
-                <Login/>
-              }
               </AdminWrapper>
+                :
+                <LoginWrapper>
+                  <Login/>
+                </LoginWrapper>
+              }
+              </div>
             )
           }}
           />

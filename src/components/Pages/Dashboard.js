@@ -1,11 +1,14 @@
 import React, {Component} from 'react';
-import { withRouter } from "react-router";
+import { withRouter } from "react-router-dom";
 import {connect } from 'react-redux'
 
 class Dashboard extends Component{
   render(){
     return(
-      <h1>You are logged in with token: {this.props.auth.token} </h1>
+      <div className="container">
+      <h1>You are logged in</h1>
+       <strong> with token:</strong><i> {this.props.auth.token} </i>
+      </div>
     )
   }
 }
