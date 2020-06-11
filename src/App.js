@@ -9,7 +9,7 @@ import Home from './components/Pages/Home'
 import About from './components/Pages/About'
 import Contact from './components/Pages/Contact'
 import Login from './components/Pages/Login'
-import Dashboard from './components/Pages/Dashboard'
+import Dashboard from './components/Pages/Admin/Dashboard'
 import LoginWrapper from './components/LoginWrapper';
 
 class App extends Component {
