@@ -23,6 +23,24 @@ render(){
     <div className="App">
         <Router>
 
+        <Route
+        path="/admin/posts"
+        render = { props =>{
+          return (
+          <div>
+            {this.props.auth.token?
+            <AdminWrapper>
+              <Posts/>
+            </AdminWrapper>
+              :
+              <LoginWrapper>
+                <Login/>
+              </LoginWrapper>
+            }
+            </div>
+          )
+        }}
+        />
           <Route
           path="/admin/users"
           render = { props =>{
@@ -42,24 +60,7 @@ render(){
           }}
           />
 
-          <Route
-          path="/admin/posts"
-          render = { props =>{
-            return (
-            <div>
-              {this.props.auth.token?
-              <AdminWrapper>
-                <Posts/>
-              </AdminWrapper>
-                :
-                <LoginWrapper>
-                  <Login/>
-                </LoginWrapper>
-              }
-              </div>
-            )
-          }}
-          />
+
           <Route
           exact={true}
           path="/admin"
