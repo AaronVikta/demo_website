@@ -13,6 +13,7 @@ import Login from './components/Pages/Login'
 import Dashboard from './components/Pages/Admin/Dashboard'
 import Users from './components/Pages/Admin/Users'
 import Posts from './components/Pages/Admin/Posts'
+import AddPost from './components/Pages/Admin/AddPost'
 
 import AdminWrapper from './components/AdminWrapper'
 import LoginWrapper from './components/LoginWrapper';
@@ -23,6 +24,24 @@ render(){
     <div className="App">
         <Router>
 
+        <Route
+          path='/admin/posts/add'
+          render={props=>{
+            return(
+            <div>
+            {this.props.auth.token?
+            <AdminWrapper>
+              <AddPost/>
+            </AdminWrapper>
+              :
+              <LoginWrapper>
+                <Login/>
+              </LoginWrapper>
+            }
+            </div>
+          )
+          }}
+        />
         <Route
         path="/admin/posts"
         render = { props =>{
@@ -107,6 +126,7 @@ render(){
               </PageWrapper>
             )}
             />
+
         </Router>
     </div>
   );
