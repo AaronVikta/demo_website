@@ -25,6 +25,26 @@ render(){
         <Router>
 
         <Route
+        exact={true}
+          path='/admin/posts/:view/:id'
+          render={props=>{
+            return(
+            <div>
+            {this.props.auth.token?
+            <AdminWrapper>
+              <AddPost/>
+            </AdminWrapper>
+              :
+              <LoginWrapper>
+                <Login/>
+              </LoginWrapper>
+            }
+            </div>
+          )
+          }}
+        />
+        <Route
+        exact={true}
           path='/admin/posts/add'
           render={props=>{
             return(
@@ -43,6 +63,26 @@ render(){
           }}
         />
         <Route
+        exact={true}
+          path='/admin/posts/:view/:id'
+          render={props=>{
+            return(
+            <div>
+            {this.props.auth.token?
+            <AdminWrapper>
+              <AddPost/>
+            </AdminWrapper>
+              :
+              <LoginWrapper>
+                <Login/>
+              </LoginWrapper>
+            }
+            </div>
+          )
+          }}
+        />
+        <Route
+        exact={true}
         path="/admin/posts"
         render = { props =>{
           return (

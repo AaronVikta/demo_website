@@ -11,11 +11,11 @@ const {store,persistor} = configureStore()
 
 ReactDOM.render(
   <Provider store={store}>
-  <React.StrictMode>
+  
     <PersistGate loading={null} persistor={persistor}>
         <App/>
     </PersistGate>
-  </React.StrictMode>
+
   </Provider>
 ,document.getElementById('root')
 );

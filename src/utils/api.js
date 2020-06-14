@@ -21,7 +21,15 @@ getPosts: (token, success) => {
        .then(res => {
            success(res);
       })
+   },
+   addPost:(post,token, success)=>{
+     console.log('added post', post);
+     axios.post(`${host}/api/Posts?access_token=${token}`, post)
+     .then(res=>{
+       success(res)
+     })
    }
 }
+
 
 export default API

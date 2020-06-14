@@ -16,6 +16,16 @@ const admin = (state = defaultState, action)=>{
         ...state,
         posts:action.payload
       }
+
+      case 'POST_ADDED':
+      return {
+        ...state,
+        posts: state.posts.concat(action.payload)
+      }
+      return {
+        ...state,
+        posts:state.concat(action.payload)
+      }
     default:
     return state
   }
