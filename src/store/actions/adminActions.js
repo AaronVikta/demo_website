@@ -34,6 +34,17 @@ export const addPost =(post, token)=>{
   }
 }
 
+export const uploadImage =(data, token, postId, userId)=>{
+  return dispatch =>{
+    API.uploadImage(data,token, postId, userId, res =>{
+      dispatch({
+        type:'UPLOADED_IMAGE',
+        payload:res.data
+      })
+    })
+  }
+}
+
 export const getSinglePost =(id, token )=>{
   return dispatch =>{
     API.getSinglePost(id, token, res=>{

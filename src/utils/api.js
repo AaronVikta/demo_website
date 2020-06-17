@@ -3,6 +3,10 @@ import axios from 'axios'
 const host ='http://localhost:8081'
 
 const API = {
+  makeFileURL: (url, token)=>{
+    return host + url + "?access_token=" + token;
+  },
+
 login: (email, pass, success) =>{
   axios.post(`${host}/api/users/login`,{email:email, password:pass})
   .then(res =>{
@@ -36,11 +40,23 @@ getPosts: (token, success) => {
      })
    },
    getSinglePost:(id, token, success)=>{
-     axios.get(`${host}/api/Posts/${id}?access_token=${token}`)
+     axios.get(`${host}/api/Posts/${id}?access_token=${token}`,{
+       params:{
+         filter:{
+           include:'PostImage'
+         }
+       }
+     })
      .then(res=>{
        success(res)
      })
-   }
+   },
+   uploadImage: (data, token, postId, userId, success) => {
+    axios.post(`${host}/api/PostImages/upload?post_id=${postId}&access_token=${token}&user_id=${userId}`, data)
+    .then(res => {
+        success(res);
+    })
+  }
 }
 
 

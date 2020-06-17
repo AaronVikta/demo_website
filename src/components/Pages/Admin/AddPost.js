@@ -5,6 +5,7 @@ import * as AdminActions from '../../../store/actions/adminActions';
 import {withStyles} from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 
+import ImageIcon from '@material-ui/icons/Image'
 import {withFormik, Form} from 'formik';
 import {FormikTextField, FormikSelectField} from 'formik-material-fields'
 import Button  from '@material-ui/core/Button';
@@ -13,13 +14,21 @@ import {withRouter} from 'react-router-dom'
 
 import * as Yup from 'yup'
 
+import API from '../../../utils/api'
+/*global $ */
 const styles = theme=>({
   container:{
   margin: theme.spacing(3),
-display:'flex',
-flexDirection:'row wrap',
-width: '100%'
-},
+  display:'flex',
+  flexDirection:'row wrap',
+  width: '100%'
+  },
+  postImage:{
+    width:'100%'
+  },
+  Save:{
+    marginBottom:theme.spacing(2)
+  },
 formControl:{
   margin:theme.spacing(1)
 },
@@ -48,7 +57,11 @@ componentDidUpdate(props, state){
     this.props.setValues(this.props.admin.post)
   }
 }
-
+uploadImage=(e)=>{
+  const data = new FormData();
+  data.append('file', e.target.files[0], new Date().getTime().toString()+ e.target.files[0].name)
+  this.props.uploadImage(data, this.props.auth.token, this.props.admin.post.id, this.props.auth.user.userId)
+}
 componentDidMount(props, state){
   if(this.props.match.params.view ==='edit' && this.props.match.params.id){
     this.props.getSinglePost(this.props.match.params.id, this.props.auth.token);
@@ -91,6 +104,7 @@ componentDidMount(props, state){
               {label:'Published', value:true}
             ]}
           />
+          <div className={classes.Save}>
           <Button
           variant="contained"
           color="secondary"
@@ -100,6 +114,23 @@ componentDidMount(props, state){
           >
             <SaveIcon/> Save
           </Button>
+          </div>
+          {this.props.admin.post.PostImage ?
+              this.props.admin.post.PostImage.length > 0 ?
+              <img src={API.makeFileURL(this.props.admin.post.PostImage[0].url, this.props.auth.token)}
+              className={classes.postImage} />
+              : null
+              : null}
+          <div>
+          <Button
+              variant="contained"
+              color="primary"
+              onClick={e => {
+                  $('.MyFile').trigger('click');
+              }}
+              ><ImageIcon /> Upload Post Image</Button>
+          <input type="file" style={{display: 'none'}} className="MyFile" onChange={this.uploadImage} />
+          </div>
         </Paper>
         </Form>
       </div>
@@ -121,6 +152,9 @@ const mapDispatchToProps =dispatch=>({
   },
   getSinglePost:(id, token)=>{
     dispatch(AdminActions.getSinglePost(id, token))
+  },
+  uploadImage:(data,token, postId, userId)=>{
+    dispatch(AdminActions.uploadImage(data, token, postId, userId))
   }
 })
 
