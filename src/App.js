@@ -8,6 +8,8 @@ import Home from './components/Pages/Home'
 import About from './components/Pages/About'
 import Contact from './components/Pages/Contact'
 import Login from './components/Pages/Login'
+import Blog from './components/Pages/Blog';
+import Single from './components/Pages/Single';
 
 // Admin pages
 import Dashboard from './components/Pages/Admin/Dashboard'
@@ -23,26 +25,6 @@ render(){
   return (
     <div className="App">
         <Router>
-
-        <Route
-        exact={true}
-          path='/admin/posts/:view/:id'
-          render={props=>{
-            return(
-            <div>
-            {this.props.auth.token?
-            <AdminWrapper>
-              <AddPost/>
-            </AdminWrapper>
-              :
-              <LoginWrapper>
-                <Login/>
-              </LoginWrapper>
-            }
-            </div>
-          )
-          }}
-        />
         <Route
         exact={true}
           path='/admin/posts/add'
@@ -62,6 +44,7 @@ render(){
           )
           }}
         />
+
         <Route
         exact={true}
           path='/admin/posts/:view/:id'
@@ -151,6 +134,25 @@ render(){
             />
 
             <Route
+              path="/blog/:slug"
+              render={props =>(
+                <PageWrapper>
+                  <Single {...props}/>
+                </PageWrapper>
+              )}
+              />
+
+            <Route
+              exact={true}
+              path="/blog"
+              render={props =>(
+                <PageWrapper>
+                  <Blog {...props}/>
+                </PageWrapper>
+              )}
+              />
+            <Route
+            exact={true}
             path="/about"
             render={props =>(
               <PageWrapper>

@@ -19,7 +19,12 @@ getUsers:(token, success)=>{
     success(res)
   })
 },
-
+getPostCount:(success)=>{
+  axios.get(`${host}/api/Posts/count`)
+  .then(res => {
+    success(res)
+  })
+},
 getPosts: (token, success) => {
        axios.get(`${host}/api/Posts?access_token=${token}`)
        .then(res => {
@@ -51,6 +56,26 @@ getPosts: (token, success) => {
        success(res)
      })
    },
+   getSitePosts: (skip, success) => {
+          axios.get(`${host}/api/Posts`,{
+            params:{
+              filter:{
+                skip:skip,
+                limit:3,
+                include:'PostImage',
+                  fields:{
+                    id:true,
+                    title:true,
+                    slug:true,
+                    content:false
+                }
+              }
+            }
+          })
+          .then(res => {
+              success(res);
+         })
+      },
    uploadImage: (data, token, postId, userId, success) => {
     axios.post(`${host}/api/PostImages/upload?post_id=${postId}&access_token=${token}&user_id=${userId}`, data)
     .then(res => {

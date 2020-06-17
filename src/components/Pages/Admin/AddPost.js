@@ -15,6 +15,9 @@ import {withRouter} from 'react-router-dom'
 import * as Yup from 'yup'
 
 import API from '../../../utils/api'
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css'
+
 /*global $ */
 const styles = theme=>({
   container:{
@@ -67,6 +70,27 @@ componentDidMount(props, state){
     this.props.getSinglePost(this.props.match.params.id, this.props.auth.token);
   }
 }
+
+modules= {
+  toolbar:[
+    ['bold','italic','underline'],
+  [{'header':1}, {'header':2}],
+  [{'list':'ordered'}, {'list':'bullet'}],
+  [{'indent':'-1'}, {'indent':'+1'}],
+  [{'size':['small','medium','large','huge']}],
+   [{'color':[]}, {'background':[]}],
+   ['image'],
+   ['clean']
+]
+}
+
+formats=[
+  'header',
+  'bold',
+  'italic','underline', 'strike', 'blockquote',
+  'script', 'list','link','image', 'color','code-block'
+]
+
   render(){
     const {classes} = this.props;
     return(
@@ -86,11 +110,13 @@ componentDidMount(props, state){
                 label="Slug"
                 margin="normal"
                     />
-            <FormikTextField
-              name="content"
-              label="Content"
-              margin="normal"
-              fullWidth
+
+            <ReactQuill
+              modules={this.modules}
+              formats={this.formats}
+              value={this.props.values.content}
+              placeholder= "Write Some Cool Stuffs"
+              onChange={val =>this.props.setFieldValue('content', val)}
             />
         </Paper>
         <Paper className={classes.rightSide}>
