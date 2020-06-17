@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PageWrapper from './components/PageWrapper'
-import {BrowserRouter as Router, Route} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
 
 // Pages
@@ -8,6 +8,7 @@ import Home from './components/Pages/Home'
 import About from './components/Pages/About'
 import Contact from './components/Pages/Contact'
 import Login from './components/Pages/Login'
+import Signup from './components/Pages/Signup'
 import Blog from './components/Pages/Blog';
 import Single from './components/Pages/Single';
 
@@ -102,6 +103,22 @@ render(){
           }}
           />
 
+          <Route
+            exact={true}
+            path="/signup"
+            render={props => {
+              if(this.props.auth.token){
+                return (
+                  <Redirect to="/" />
+                )
+              }else{
+                return (
+                  <LoginWrapper>
+                      <Signup />
+                    </LoginWrapper>
+                )
+              }
+            }} />
 
           <Route
           exact={true}

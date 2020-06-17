@@ -82,6 +82,15 @@ getPosts: (token, success) => {
         success(res);
     })
   },
+  register: (name, email, pass, success) => {
+      axios.post(`${host}/api/users`, {name: name, email: email, password: pass})
+      .then(res => {
+          success(res);
+      })
+      .catch(err => {
+          success(err);
+      })
+  },
   getPostBySlug: (slug, token, success) => {
       axios.get(`${host}/api/Posts/findOne?access_token=${token}`, {
           params: {
